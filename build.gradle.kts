@@ -1,6 +1,8 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
-    kotlin("jvm") version "1.9.21"
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    kotlin("jvm") version "2.0.0"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 java {
@@ -14,7 +16,7 @@ val kotlinVersion = kotlin.coreLibrariesVersion
 
 repositories {
     mavenCentral()
-    maven("https://repo.blugon.kr/repository/maven-public/")
+//    maven("https://repo.blugon.kr/repository/maven-public/")
 }
 
 dependencies {
@@ -31,15 +33,17 @@ extra.apply {
 
 tasks {
     compileKotlin {
-        kotlinOptions.jvmTarget = JavaVersion.VERSION_21.toString()
-    }
-
-    processResources {
-        filesMatching("*.yml") {
-            expand(project.properties)
-            expand(extra.properties)
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_21)
         }
     }
+
+//    processResources {
+//        filesMatching("*.yml") {
+//            expand(project.properties)
+//            expand(extra.properties)
+//        }
+//    }
 
     jar { this.build() }
     shadowJar { this.build() }
@@ -61,6 +65,7 @@ fun Jar.build() {
     }
 
     manifest {
-        attributes["Main-Class"] = "${project.group}.${project.name.lowercase()}.${project.name}Kt" //Main File
+//        attributes["Main-Class"] = "${project.group}.${project.name.lowercase()}.${project.name}Kt" //Main File
+        attributes["Main-Class"] = "${project.group}.${project.name.lowercase()}.${project.name}" //Main File
     }
 }
