@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     kotlin("jvm") version "2.0.0"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("com.gradleup.shadow") version "8.3.0"
 }
 
 java {
@@ -25,11 +25,11 @@ dependencies {
 //    implementation("kr.blugon:asdf:latest.release")
 }
 
-extra.apply {
-    set("ProjectName", project.name)
-    set("ProjectVersion", project.version)
-    set("KotlinVersion", kotlinVersion)
-}
+//extra.apply {
+//    set("ProjectName", project.name)
+//    set("ProjectVersion", project.version)
+//    set("KotlinVersion", kotlinVersion)
+//}
 
 tasks {
     compileKotlin {
