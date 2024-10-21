@@ -1,0 +1,13 @@
+[versions]
+kotlin = "2.0.21"
+shadow = "8.3.3"
+#lib
+coroutine = "latest.release"
+
+
+[plugins]
+kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
+
+[libraries]
+coroutine = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutine" }

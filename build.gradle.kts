@@ -1,8 +1,8 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    kotlin("jvm") version "2.0.0"
-    id("com.gradleup.shadow") version "8.3.0"
+    alias(libs.plugins.kotlin)
+    alias(libs.plugins.shadow)
 }
 
 java {
@@ -12,7 +12,6 @@ java {
 }
 
 val buildPath = File("C:/Users/blugo/Desktop")
-val kotlinVersion = kotlin.coreLibrariesVersion
 
 repositories {
     mavenCentral()
@@ -21,15 +20,9 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    implementation(kotlin("reflect"))
+    implementation(libs.coroutine)
 //    implementation("kr.blugon:asdf:latest.release")
 }
-
-//extra.apply {
-//    set("ProjectName", project.name)
-//    set("ProjectVersion", project.version)
-//    set("KotlinVersion", kotlinVersion)
-//}
 
 tasks {
     compileKotlin {
@@ -38,20 +31,11 @@ tasks {
         }
     }
 
-//    processResources {
-//        filesMatching("*.yml") {
-//            expand(project.properties)
-//            expand(extra.properties)
-//        }
-//    }
-
     jar { this.build() }
     shadowJar { this.build() }
 }
 
 fun Jar.build() {
-    val file = File("./build/libs/${project.name}.jar")
-    if(file.exists()) file.delete()
     archiveBaseName.set(project.name) //Project Name
     archiveFileName.set("${project.name}.jar") //Build File Name
     archiveVersion.set(project.version.toString()) //Version
@@ -65,7 +49,6 @@ fun Jar.build() {
     }
 
     manifest {
-//        attributes["Main-Class"] = "${project.group}.${project.name.lowercase()}.${project.name}Kt" //Main File
-        attributes["Main-Class"] = "${project.group}.${project.name.lowercase()}.${project.name}" //Main File
+        attributes["Main-Class"] = "${project.group}.${project.name.lowercase()}.${project.name}Kt" //Main File
     }
 }
